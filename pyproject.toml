@@ -1,20 +1,23 @@
 [build-system]
-requires = ["hatchling"]
+requires = [
+    "hatchling",
+]
 build-backend = "hatchling.build"
 
 [project]
 name = "uvicorn"
-dynamic = ["version"]
 description = "The lightning-fast ASGI server."
 readme = "README.md"
 license = "BSD-3-Clause"
-license-files = ["LICENSE.md"]
+license-files = [
+    "LICENSE.md",
+]
 requires-python = ">=3.10"
 authors = [
     { name = "Tom Christie", email = "tom@tomchristie.com" },
 ]
 maintainers = [
-    { name = "Marcelo Trylesinski", email = "marcelotryle@gmail.com" },
+    { name = "Lineaje DepFixer", email = "221268890+Lineaje-DepFixer@users.noreply.github.com" },
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -36,6 +39,7 @@ dependencies = [
     "h11>=0.8",
     "typing_extensions>=4.0; python_version < '3.11'",
 ]
+version = "0.49.0+lineaje.1"
 
 [project.optional-dependencies]
 standard = [
@@ -48,9 +52,19 @@ standard = [
     "websockets>=10.4",
 ]
 
+[project.scripts]
+uvicorn = "uvicorn.main:main"
+
+[project.urls]
+Changelog = "https://uvicorn.dev/release-notes"
+Funding = "https://github.com/sponsors/encode"
+Homepage = "https://github.com/lineaje-labs-gos/Kludex-uvicorn"
+Source = "https://github.com/Kludex/uvicorn"
+Repository = "https://github.com/lineaje-labs-gos/Kludex-uvicorn"
+Tracker = "https://github.com/lineaje-labs-gos/Kludex-uvicorn/issues"
+
 [dependency-groups]
 dev = [
-    # We add uvicorn[standard] so `uv sync` considers the extras.
     "uvicorn[standard]",
     "ruff==0.15.1",
     "pytest==9.0.3",
@@ -66,9 +80,7 @@ dev = [
     "coverage-conditional-plugin==0.9.0",
     "coverage-enable-subprocess==1.0",
     "httpx==0.28.1",
-    # check dist
     "twine==6.2.0",
-    # Explicit optionals,
     "a2wsgi==1.10.10",
     "wsproto==1.3.2",
     "websockets==13.1",
@@ -79,34 +91,41 @@ docs = [
 ]
 
 [tool.uv]
-default-groups = ["dev", "docs"]
+default-groups = [
+    "dev",
+    "docs",
+]
 required-version = ">=0.9.17"
 exclude-newer = "7 days"
 
 [tool.uv.exclude-newer-package]
 httptools = "2026-05-26"
 
-[project.scripts]
-uvicorn = "uvicorn.main:main"
-
-[project.urls]
-Changelog = "https://uvicorn.dev/release-notes"
-Funding = "https://github.com/sponsors/encode"
-Homepage = "https://uvicorn.dev/"
-Source = "https://github.com/Kludex/uvicorn"
-
 [tool.hatch.version]
 path = "uvicorn/__init__.py"
 
 [tool.hatch.build.targets.sdist]
-include = ["/uvicorn", "/tests"]
+include = [
+    "/uvicorn",
+    "/tests",
+]
 
 [tool.ruff]
 line-length = 120
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "FA", "UP"]
-ignore = ["B904", "B028", "UP031"]
+select = [
+    "E",
+    "F",
+    "I",
+    "FA",
+    "UP",
+]
+ignore = [
+    "B904",
+    "B028",
+    "UP031",
+]
 
 [tool.ruff.lint.isort]
 combine-as-imports = true
@@ -130,15 +149,24 @@ filterwarnings = [
     "ignore: websockets.legacy is deprecated.*:DeprecationWarning",
     "ignore: websockets.server.WebSocketServerProtocol is deprecated.*:DeprecationWarning",
     "ignore: websockets.client.connect is deprecated.*:DeprecationWarning",
-    # httptools in Python 3.14t needs the `PYTHON_GIL=0` environment variable, or raises a RuntimeWarning.
-    "ignore: The global interpreter lock (GIL)*:RuntimeWarning"
+    "ignore: The global interpreter lock (GIL)*:RuntimeWarning",
 ]
 
 [tool.coverage.run]
 parallel = true
-source_pkgs = ["uvicorn", "tests"]
-plugins = ["coverage_conditional_plugin"]
-omit = ["uvicorn/workers.py", "uvicorn/__main__.py", "uvicorn/_compat.py", "tests/benchmarks/*"]
+source_pkgs = [
+    "uvicorn",
+    "tests",
+]
+plugins = [
+    "coverage_conditional_plugin",
+]
+omit = [
+    "uvicorn/workers.py",
+    "uvicorn/__main__.py",
+    "uvicorn/_compat.py",
+    "tests/benchmarks/*",
+]
 
 [tool.coverage.report]
 precision = 2
@@ -160,7 +188,9 @@ exclude_lines = [
     "uvicorn/supervisors/multiprocess.py",
     "tests/supervisors/test_multiprocess.py",
 ]
-"sys_platform != 'win32'" = ["uvicorn/loops/asyncio.py"]
+"sys_platform != 'win32'" = [
+    "uvicorn/loops/asyncio.py",
+]
 
 [tool.coverage.coverage_conditional_plugin.rules]
 py-win32 = "sys_platform == 'win32'"
